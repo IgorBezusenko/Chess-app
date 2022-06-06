@@ -5,6 +5,7 @@ import {Board} from "./models/Board";
 import {Player} from "./models/Player";
 import {Colors} from "./models/Colors";
 import LostFigures from "./components/LostFigures";
+import Timer from "./components/Timer";
 
 function App() {
     const [board, setBoard] = useState(new Board())
@@ -13,7 +14,6 @@ function App() {
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null)
     useEffect(() => {
         restart()
-        setCurrentPlayer(whitePlayer)
     }, [])
 
     function restart() {
@@ -21,6 +21,7 @@ function App() {
         newBoard.initCells()
         newBoard.addFigures()
         setBoard(newBoard)
+        setCurrentPlayer(whitePlayer)
     }
 
     function swapPlayer() {
@@ -29,6 +30,7 @@ function App() {
 
     return (
         <div className="app">
+            <Timer currentPlayer={currentPlayer} restart={restart}/>
             <BoardComponent
                 board={board}
                 setBoard={setBoard}
